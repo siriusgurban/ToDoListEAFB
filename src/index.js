@@ -3,7 +3,7 @@ import {
     collection,
     onSnapshot,
     getFirestore,
-    addDoc, deleteDoc, doc
+    addDoc, deleteDoc, doc, query, where, orderBy, serverTimestamp
  } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -25,13 +25,37 @@ const db = getFirestore();
 //collection ref
 const colRef = collection(db, 'todos')
 
-//real time collection data
-onSnapshot(colRef, (snapshot)=>{
+//queries
+// const q = query(colRef, where("todo", "==", "ad"), orderBy('todo',"desc"))
+const q = query(colRef, orderBy('createdAt'))
+
+//real time collection data, 
+onSnapshot(colRef, (snapshot)=>{ //colRef-in yerine q-nu yazsam q-deki query-de yazdigimi gosterecek
   let todos = [];
   // console.log(snapshot.docs);
   snapshot.docs.forEach((doc)=>{
     todos.push({...doc.data(), id: doc.id})
   })
+
+  
+  
+  let datamap = todos.reverse().map(function (el, i) {
+      console.log(el.todo.id);
+        return ` <div class="d-flex justify-content-between">
+        <div class="bg-primary rounded-2 my-3">${el.todo}</div>
+        <div class="d-flex justify-content-between g-2">
+
+            // <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${el.todo.id})">Delete</button>
+            <button id="del" class="bg-danger rounded-2 cursor-pointer" onclick="dele(${el.todo.id})">Delete</button>
+
+            <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
+
+        </div>
+    </div>`;
+    }).join("");
+
+    result.innerHTML = datamap;
+
 
   console.log(todos);
 })
@@ -41,11 +65,13 @@ let btn = document.querySelector("#btn");
 let addPlace = document.querySelector("#addPlace");
 let inp = document.querySelector("#inp");
 
-btn.addEventListener("click", (e)=>{
+
+btn.addEventListener("click", (e)=>{//add to collection
   e.preventDefault();
 
   addDoc(colRef, {
     todo: inp.value,
+    createdAt: serverTimestamp()
   })
   .then(()=>{
     inp.value = "";
@@ -57,7 +83,7 @@ btn.addEventListener("click", (e)=>{
 let del = document.querySelector("#del");
 let delInp = document.querySelector("#delInp");
 
-del.addEventListener("click", (e)=>{
+del.addEventListener("click", (e)=>{//delete button
   e.preventDefault();
 
   const docRef = doc(db, "todos", delInp.value)
@@ -66,6 +92,16 @@ del.addEventListener("click", (e)=>{
 
 })
 
+// del.addEventListener("click",  del(el) );
+
+function dele(el){//delete button
+  // e.preventDefault();
+
+  const docRef = doc(db, "todos", el)
+
+  deleteDoc(docRef);
+
+}
 
 
 // console.log("salam");
