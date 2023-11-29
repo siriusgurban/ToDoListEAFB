@@ -1,10 +1,14 @@
+//your code
+
 import {initializeApp } from "firebase/app";
 import {
-    collection,
-    onSnapshot,
-    getFirestore,
-    addDoc, deleteDoc, doc, query, where, orderBy, serverTimestamp
- } from 'firebase/firestore';
+  collection,
+  onSnapshot,
+  getFirestore,
+  addDoc, deleteDoc, doc, query, where, orderBy, serverTimestamp
+} from 'firebase/firestore';
+
+document.addEventListener("DOMContentLoaded", () => {
 
 const firebaseConfig = {
     apiKey: "AIzaSyCchalPMe4QFZXzkG8A7L1h1CtRXEZOook",
@@ -40,36 +44,35 @@ onSnapshot(colRef, (snapshot)=>{ //colRef-in yerine q-nu yazsam q-deki query-de 
   
   
   let datamap = todos.reverse().map(function (el, i) {
-      console.log(el.todo.id);
+    console.log(el.id);
         return ` <div class="d-flex justify-content-between">
         <div class="bg-primary rounded-2 my-3">${el.todo}</div>
         <div class="d-flex justify-content-between g-2">
 
-            // <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${el.todo.id})">Delete</button>
-            <button id="del" class="bg-danger rounded-2 cursor-pointer" onclick="dele(${el.todo.id})">Delete</button>
+        <button id="del" class="bg-danger rounded-2 cursor-pointer" onclick="dele(${el.id})">Delete</button>
 
-            <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
-
+        <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
+        
         </div>
-    </div>`;
+        </div>`;
     }).join("");
-
+    
     result.innerHTML = datamap;
+    
+    
+    console.log(todos);
+  })
 
-
-  console.log(todos);
-})
-
-
-let btn = document.querySelector("#btn");
-let addPlace = document.querySelector("#addPlace");
-let inp = document.querySelector("#inp");
-
-
-btn.addEventListener("click", (e)=>{//add to collection
-  e.preventDefault();
-
-  addDoc(colRef, {
+  
+  let btn = document.querySelector("#btn");
+  let addPlace = document.querySelector("#addPlace");
+  let inp = document.querySelector("#inp");
+  
+  
+  btn.addEventListener("click", (e)=>{//add to collection
+    e.preventDefault();
+    
+    addDoc(colRef, {
     todo: inp.value,
     createdAt: serverTimestamp()
   })
@@ -83,24 +86,24 @@ btn.addEventListener("click", (e)=>{//add to collection
 let del = document.querySelector("#del");
 let delInp = document.querySelector("#delInp");
 
-del.addEventListener("click", (e)=>{//delete button
-  e.preventDefault();
+// del.addEventListener("click", (e)=>{//delete button
+//   e.preventDefault();
 
-  const docRef = doc(db, "todos", delInp.value)
+//   const docRef = doc(db, "todos", delInp.value)
 
-  deleteDoc(docRef);
+//   deleteDoc(docRef);
 
-})
+// })
 
 // del.addEventListener("click",  del(el) );
 
-function dele(el){//delete button
+function dele(id){//delete button
   // e.preventDefault();
-
-  const docRef = doc(db, "todos", el)
-
+  
+  const docRef = doc(db, "todos", id)
+  
   deleteDoc(docRef);
-
+  
 }
 
 
@@ -111,24 +114,24 @@ function dele(el){//delete button
 //     data.splice(i, 1);
 
 //     let datamap = data.reverse().map(function (el, i) {
-//         return ` <div class="d-flex justify-content-between">
-//         <div class="bg-primary rounded-2 my-3">${el}</div>
-//         <div class="d-flex justify-content-between g-2">
-
-//             <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${i})">Delete</button>
-//             <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
-
-//         </div>
-//     </div>`;
-//     }).join("");
-
-//     result.innerHTML = datamap;
-// }
-
- 
-
-// function update(e) {    //update funksiyasi
- 
+  //         return ` <div class="d-flex justify-content-between">
+  //         <div class="bg-primary rounded-2 my-3">${el}</div>
+  //         <div class="d-flex justify-content-between g-2">
+  
+  //             <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${i})">Delete</button>
+  //             <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
+  
+  //         </div>
+  //     </div>`;
+  //     }).join("");
+  
+  //     result.innerHTML = datamap;
+  // }
+  
+  
+  
+  // function update(e) {    //update funksiyasi
+  
 //     console.log(e);
 
 //     // data.splice(index, 1, elem[0]);
@@ -136,15 +139,15 @@ function dele(el){//delete button
 //     let datamap = data.map(function (el, i) {
 
 //         return ` <div class="d-flex justify-content-between">  
-        
+
 //         <div class="bg-primary rounded-2 my-3">${el}</div>
            
 //             <div  class="d-flex justify-content-between g-2">
-    
+
 //                 <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${i})">Delete</button>
 //                 <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
 //                 </div>
-           
+
 //             </div>`;
 //     }).join("");
 
@@ -156,26 +159,26 @@ function dele(el){//delete button
 // function edit(index) {   /// edit funksiyasi
 
 //     let datamap = data.map(function (el, i) {
-
-//         if (index == i) {
-             
-//             return ` <div class="d-flex justify-content-between"> 
-//             <input id="inp1" class="rounded-2" type="text" value onchange="update(${i})"/>
-//             <div  class="d-flex justify-content-between g-2">
+  
+  //         if (index == i) {
     
-//                 <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${i})">Delete</button>
-//                 <button class="bg-warning rounded-2 cursor-pointer" onclick="update(${i})">Update</button>
-//                 </div>
-            
-//             </div>`;
-//         } else {
+    //             return ` <div class="d-flex justify-content-between"> 
+    //             <input id="inp1" class="rounded-2" type="text" value onchange="update(${i})"/>
+    //             <div  class="d-flex justify-content-between g-2">
+    
+    //                 <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${i})">Delete</button>
+    //                 <button class="bg-warning rounded-2 cursor-pointer" onclick="update(${i})">Update</button>
+    //                 </div>
+    
+    //             </div>`;
+    //         } else {
 //             return ` <div class="d-flex justify-content-between">  <div  class="bg-primary rounded-2 my-3">${el}</div>
 //             <div  class="d-flex justify-content-between g-2">
-    
+
 //                 <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${i})">Delete</button>
 //                 <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
 //                 </div>
-          
+
 //             </div>`;
 //         }
 
@@ -191,22 +194,24 @@ function dele(el){//delete button
 
 
 // btn.addEventListener("click", function () { //Add funksiyasi
-    
+
 //     data.push(inp.value);
 //     console.log(data);
 
 //     let datamap = data.reverse().map(function (el, i) {
-//         return ` <div class="d-flex justify-content-between">
-//         <div class="bg-primary rounded-2 my-3">${el}</div>
-//         <div class="d-flex justify-content-between g-2">
-
-//             <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${i})">Delete</button>
-//             <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
-
-//         </div>
-//     </div>`;
-//     }).join("");
-
-//     result.innerHTML = datamap;
-// })
-
+  //         return ` <div class="d-flex justify-content-between">
+  //         <div class="bg-primary rounded-2 my-3">${el}</div>
+  //         <div class="d-flex justify-content-between g-2">
+  
+  //             <button class="bg-danger rounded-2 cursor-pointer" onclick="del(${i})">Delete</button>
+  //             <button class="bg-warning rounded-2 cursor-pointer" onclick="edit(${i})">Edit</button>
+  
+  //         </div>
+  //     </div>`;
+  //     }).join("");
+  
+  //     result.innerHTML = datamap;
+  // })
+  
+  
+});
