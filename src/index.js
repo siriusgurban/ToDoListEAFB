@@ -4,7 +4,7 @@ import {
   collection,
   onSnapshot,
   getFirestore,
-  addDoc, deleteDoc, doc, query, where, orderBy, serverTimestamp
+  addDoc, deleteDoc, doc, query, where, orderBy, serverTimestamp, updateDoc
 } from 'firebase/firestore';
 
 
@@ -43,18 +43,19 @@ import {
       // console.log(el.id);
       return ` <div class="d-flex justify-content-between">
         <div class="bg-primary rounded-2 my-3">${el.todo}</div>
-        <div class="d-flex justify-content-between g-2">
+          <div class="d-flex justify-content-between g-2">
 
-        <button id="del" class="bg-danger rounded-2 cursor-pointer delClass" data-id="${el.id}">Delete</button>
+            <button  class="bg-danger rounded-2 cursor-pointer delClass" data-id="${el.id}">Delete</button>
 
-        <button class="bg-warning rounded-2 cursor-pointer">Edit</button>
-        
-        </div>
+            <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el.id}" data-value="${el.todo}">Edit</button>
+          
+          </div>
         </div>`;
     }).join("");
 
     result.innerHTML = datamap;
     deleteElement();
+    editElement();
 
     console.log(todos);
   })
@@ -77,21 +78,9 @@ import {
       })
 
   })
- 
-//   let delClass = document.querySelectorAll(".delClass");
-//  delClass.forEach(btnDel => {
-//     btnDel.addEventListener("click", function () {
-      
-//       dele(btnDel.dataset.id);
-
-//     })
-    
-//   })
 
 
-
-
-function deleteElement() {
+function deleteElement() {                                // delete function
   let delClass = document.querySelectorAll(".delClass");
   delClass.forEach((delBtn)=>{
     delBtn.addEventListener("click", function(){
@@ -101,11 +90,76 @@ function deleteElement() {
 }
 
 function deleteItem(id) {
-  console.log("click");
+  console.log("deleted");
+
     const docRef = doc(db, "todos", id)
       deleteDoc(docRef);
 }
 
+
+function editElement() {
+  let editClass = document.querySelectorAll(".editClass");
+    editClass.forEach((editBtn)=>{
+      editBtn.addEventListener("click", function () {       // edit funksiyasi
+        editItem(editBtn.dataset.id)
+  })
+})
+}
+
+function editItem(id){
+
+  onSnapshot(colRef, (snapshot) => { 
+    let todos = [];
+    snapshot.docs.forEach((doc) => {
+      todos.push({ ...doc.data(), id: doc.id })
+
+      console.log(doc.id);
+      console.log(id);
+      console.log(todos);
+      
+    })
+
+    const docRef = doc(db, "todos", id)
+
+    updateDoc(docRef);
+    
+    console.log(docRef+"docRef ");
+
+    let datamap = todos.map(function (el, i) {
+
+      if(id == doc.id) {
+                return `<div class="d-flex justify-content-between">
+                <div class="bg-primary rounded-2 my-3">${el.todo}</div>
+                <input class="rounded-2" type="text" value="">
+    
+                  <div class="d-flex justify-content-between g-2">
+        
+                    <button class="bg-danger rounded-2 cursor-pointer delClass" data-id="${el.id}">Delete</button>
+        
+                    <button class="bg-warning rounded-2 cursor-pointer editClass" data-id="${el.id}" data-value="${el.todo}">Update</button>
+                  
+                  </div>
+                </div>`;
+            }else{
+              return `<div class="d-flex justify-content-between">
+                <div class="bg-primary rounded-2 my-3">${el.todo}</div>
+    
+                  <div class="d-flex justify-content-between g-2">
+        
+                    <button class="bg-danger rounded-2 cursor-pointer delClass" data-id="${el.id}">Delete</button>
+        
+                    <button class="bg-warning rounded-2 cursor-pointer editClass" data-id="${el.id}" data-value="${el.todo}">Edit</button>
+                  
+                  </div>
+                </div>`;
+            }
+          }).join("");
+    
+        result.innerHTML = datamap;
+
+  })
+}
+      
 
     // onSnapshot(colRef, (snapshot) => { //colRef-in yerine q-nu yazsam q-deki query-de yazdigimi gosterecek
   //   let todos = [];
