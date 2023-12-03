@@ -19,6 +19,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
 
+
   let btn = document.querySelector("#btn");
   let inp = document.querySelector("#inp");
 
@@ -26,7 +27,7 @@ renderTodos();
 
 function writeUserData(userId, todo) {
 
-const reference = ref(db, 'todos/' + userId);
+const reference = ref(db, 'todos/' + userId);//add function
 
     set(reference, {
       todo: todo,
@@ -36,7 +37,7 @@ const reference = ref(db, 'todos/' + userId);
 
 // writeUserData(Date.now(), "move on");
 
-btn.addEventListener("click", function(){//add function
+btn.addEventListener("click", function(){//add function called
   writeUserData(Date.now(), inp.value)
   console.log("added");
   renderTodos()
@@ -62,7 +63,7 @@ function renderTodos() {
 
           <div class="d-flex justify-content-between g-2">
 
-            <button  class="bg-danger rounded-2 cursor-pointer delClass" data-id="${el[0]}">Delete</button>
+            <button class="del" data-id='${el[0]}'>Delete</button>
 
             <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el.id}" data-value="${el}">Edit</button>
           
@@ -70,36 +71,43 @@ function renderTodos() {
          </div>
         `;
       })
-      .join(" ");
+      .join("");
 
       result.innerHTML = arrMap;
-    })}
 
+      let delClass = document.querySelectorAll(".del");
+      console.log(delClass);
+      
+      delClass.forEach(delBtn=>{
+        console.log(delBtn, "btn");
+          delBtn.addEventListener("click", ()=>{//delete function called
+            console.log(delBtn.dataset.id);
+            deleteTodo(delBtn.dataset.id);
+      })})
+      
+      })
 
-
-const deleteBtn = document.querySelectorAll(".delClass");
-
-
-
-    function deleteTodo(id) {
+       function deleteTodo(id) {//delete function
       console.log(id);
-      let rmv = ref(db, "books/" + id);
+      let rmv = ref(db, "todos/" + id);
   
       remove(rmv).then(() => console.log("Success"));
 
       renderTodos();
+    
     }
+    
+
+    
+      
+
+     
+  }
 
 
-    deleteTodo(1701458018094)
 
 
-
-
-
-
-
-
+  
 
 
 
