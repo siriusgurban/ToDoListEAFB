@@ -63,9 +63,9 @@ function renderTodos() {
 
           <div class="d-flex justify-content-between g-2">
 
-            <button class="del" data-id='${el[0]}'>Delete</button>
+            <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
 
-            <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el.id}" data-value="${el}">Edit</button>
+            <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
           
           </div>
          </div>
@@ -84,11 +84,21 @@ function renderTodos() {
             console.log(delBtn.dataset.id);
             deleteTodo(delBtn.dataset.id);
       })})
+
+      let editClass = document.querySelectorAll(".editClass");
+      console.log(editClass);
+      
+      editClass.forEach(editBtn=>{
+        console.log(editBtn, "edit btn");
+          editBtn.addEventListener("click", ()=>{//edit function called
+            console.log(editBtn.dataset.value);
+            editTodo(editBtn.dataset.id, editBtn.dataset.value);
+      })})
       
       })
 
-       function deleteTodo(id) {//delete function
-      console.log(id);
+      function deleteTodo(id) {//delete function
+        console.log(id);
       let rmv = ref(db, "todos/" + id);
   
       remove(rmv).then(() => console.log("Success"));
@@ -96,13 +106,80 @@ function renderTodos() {
       renderTodos();
     
     }
-    
 
+    function editTodo(id, value) {// edit function
+      const todos = ref(db, "todos");
+
+      onValue(todos, (snapshot) => {
+        const data = snapshot.val();
     
+        
+        let arr = Object.entries(data);
+        console.log(arr);
+    
+        let arrMap = arr.map((el, index) => {
+          if(id == el[0]){
+            return `
+            <div class="d-flex justify-content-between">
+            <div class="bg-primary rounded-2 my-3">${el[1].todo}</div>
+            <input class="rounded-2 inpClass" type="text" value="${el[1].todo}" >
+    
+              <div class="d-flex justify-content-between g-2">
+    
+                <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
+    
+                <button class="bg-warning rounded-2 cursor-pointer updateClass"  data-id="${el[0]}" data-value="${el[1].todo}">Update</button>
+              
+              </div>
+             </div>
+            `;
+          }else{
+            return `
+            <div class="d-flex justify-content-between">
+            <div class="bg-primary rounded-2 my-3">${el[1].todo}</div>
+    
+              <div class="d-flex justify-content-between g-2">
+    
+                <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
+    
+                <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
+              
+              </div>
+             </div>
+            `;
+          }
+          
+          })
+          .join("");
+
+ 
+    
+          result.innerHTML = arrMap;
+
+
+          let updateClass = document.querySelector(".updateClass");
+          let inpClass = document.querySelector(".inpClass");
+            updateClass.addEventListener("click", ()=>{
+              updateTodo(updateClass.dataset.id, inpClass.value)//update function called
+            })
+    })
+    
+  
+
+    function updateTodo(id, value) {
+      console.log("update function");
+      const reference = ref(db, 'todos/' + id);//update function
+
+        set(reference, {
+          todo: value,
+        })
+
+        renderTodos();
       
+}}
 
-     
-  }
+    }
+    
 
 
 
