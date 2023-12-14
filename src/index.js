@@ -18,24 +18,47 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
+const userCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+const userInfo = JSON.parse(sessionStorage.getItem("user-info"));
+
+console.log(userCreds.uid);
+
+const signOutBtn = document.querySelector("#signoutbutton");
+const greetUser = document.querySelector("#greetUser");
+
+let btn = document.querySelector("#btn");
+let inp = document.querySelector("#inp");
 
 
-  let btn = document.querySelector("#btn");
-  let inp = document.querySelector("#inp");
+let signOut = () => {
+  sessionStorage.removeItem("user-creds");
+  sessionStorage.removeItem("user-info");
+  window.location.href = "../src/login.html"
+}
+
+let CheckCred = () => {
+  if(!sessionStorage.getItem("user-creds")){
+    window.location.href = "./login.html";
+  }
+  else{
+    greetUser.innerHTML = `Welcome ${userInfo.firstname} ${userInfo.lastname}`;
+  }
+}
+
+
+window.addEventListener("DOMContentLoaded", CheckCred);
+signOutBtn.addEventListener("click", signOut);
 
 renderTodos();
 
 function writeUserData(userId, todo) {
 
-const reference = ref(db, 'todos/' + userId);//add function
-
-    set(reference, {
-      todo: todo,
-    })
+  const reference = ref(db, 'UsersAuthList/' + userCreds.uid+ "/"+ "todos/" + userId);//add function
+      set(reference, {
+        todo: todo,
+      })
 }
 
-
-// writeUserData(Date.now(), "move on");
 
 btn.addEventListener("click", function(){//add function called
   writeUserData(Date.now(), inp.value)
@@ -46,14 +69,14 @@ btn.addEventListener("click", function(){//add function called
 const result = document.querySelector("#result");
 
 function renderTodos() {
-  const todos = ref(db, "todos");
+  const todos = ref(db, 'UsersAuthList/' + userCreds.uid + "/" + "todos");
 
   onValue(todos, (snapshot) => {
     const data = snapshot.val();
 
     
     let arr = Object.entries(data);
-    console.log(arr);
+    // console.log(arr);
 
     let arrMap = arr.map((el, index) => {
         return `
@@ -76,30 +99,23 @@ function renderTodos() {
       result.innerHTML = arrMap;
 
       let delClass = document.querySelectorAll(".del");
-      console.log(delClass);
       
       delClass.forEach(delBtn=>{
-        console.log(delBtn, "btn");
           delBtn.addEventListener("click", ()=>{//delete function called
-            console.log(delBtn.dataset.id);
             deleteTodo(delBtn.dataset.id);
       })})
 
       let editClass = document.querySelectorAll(".editClass");
-      console.log(editClass);
       
       editClass.forEach(editBtn=>{
-        console.log(editBtn, "edit btn");
           editBtn.addEventListener("click", ()=>{//edit function called
-            console.log(editBtn.dataset.value);
             editTodo(editBtn.dataset.id, editBtn.dataset.value);
       })})
       
       })
 
       function deleteTodo(id) {//delete function
-        console.log(id);
-      let rmv = ref(db, "todos/" + id);
+      let rmv = ref(db, 'UsersAuthList/' + userCreds.uid + "/" + "todos/" + id);
   
       remove(rmv).then(() => console.log("Success"));
 
@@ -108,14 +124,13 @@ function renderTodos() {
     }
 
     function editTodo(id, value) {// edit function
-      const todos = ref(db, "todos");
+      const todos = ref(db, 'UsersAuthList/' + userCreds.uid + "/" + "todos");
 
       onValue(todos, (snapshot) => {
         const data = snapshot.val();
     
         
         let arr = Object.entries(data);
-        console.log(arr);
     
         let arrMap = arr.map((el, index) => {
           if(id == el[0]){
@@ -168,7 +183,7 @@ function renderTodos() {
 
     function updateTodo(id, value) {
       console.log("update function");
-      const reference = ref(db, 'todos/' + id);//update function
+      const reference = ref(db, 'UsersAuthList/' + userCreds.uid + "/" + 'todos/' + id);//update function
 
         set(reference, {
           todo: value,
@@ -182,9 +197,170 @@ function renderTodos() {
     
 
 
+// -----------------------------------------------------
+
+// renderTodos();
+
+// function writeUserData(userId, todo) {
+
+// const reference = ref(db, 'todos/' + userId);//add function
+
+//     set(reference, {
+//       todo: todo,
+//     })
+// }
 
 
+// // writeUserData(Date.now(), "move on");
+
+// btn.addEventListener("click", function(){//add function called
+//   writeUserData(Date.now(), inp.value)
+//   console.log("added");
+//   renderTodos()
+// })
+
+// const result = document.querySelector("#result");
+
+// function renderTodos() {
+//   const todos = ref(db, "todos");
+
+//   onValue(todos, (snapshot) => {
+//     const data = snapshot.val();
+
+    
+//     let arr = Object.entries(data);
+//     console.log(arr);
+
+//     let arrMap = arr.map((el, index) => {
+//         return `
+//         <div class="d-flex justify-content-between">
+//         <div class="bg-primary rounded-2 my-3">${el[1].todo}</div>
+//         <input class="rounded-2 d-none inpClass" type="text" value="">
+
+//           <div class="d-flex justify-content-between g-2">
+
+//             <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
+
+//             <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
+          
+//           </div>
+//          </div>
+//         `;
+//       })
+//       .join("");
+
+//       result.innerHTML = arrMap;
+
+//       let delClass = document.querySelectorAll(".del");
+//       console.log(delClass);
+      
+//       delClass.forEach(delBtn=>{
+//         console.log(delBtn, "btn");
+//           delBtn.addEventListener("click", ()=>{//delete function called
+//             console.log(delBtn.dataset.id);
+//             deleteTodo(delBtn.dataset.id);
+//       })})
+
+//       let editClass = document.querySelectorAll(".editClass");
+//       console.log(editClass);
+      
+//       editClass.forEach(editBtn=>{
+//         console.log(editBtn, "edit btn");
+//           editBtn.addEventListener("click", ()=>{//edit function called
+//             console.log(editBtn.dataset.value);
+//             editTodo(editBtn.dataset.id, editBtn.dataset.value);
+//       })})
+      
+//       })
+
+//       function deleteTodo(id) {//delete function
+//         console.log(id);
+//       let rmv = ref(db, "todos/" + id);
   
+//       remove(rmv).then(() => console.log("Success"));
+
+//       renderTodos();
+    
+//     }
+
+//     function editTodo(id, value) {// edit function
+//       const todos = ref(db, "todos");
+
+//       onValue(todos, (snapshot) => {
+//         const data = snapshot.val();
+    
+        
+//         let arr = Object.entries(data);
+//         console.log(arr);
+    
+//         let arrMap = arr.map((el, index) => {
+//           if(id == el[0]){
+//             return `
+//             <div class="d-flex justify-content-between">
+//             <div class="bg-primary rounded-2 my-3">${el[1].todo}</div>
+//             <input class="rounded-2 inpClass" type="text" value="${el[1].todo}" >
+    
+//               <div class="d-flex justify-content-between g-2">
+    
+//                 <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
+    
+//                 <button class="bg-warning rounded-2 cursor-pointer updateClass"  data-id="${el[0]}" data-value="${el[1].todo}">Update</button>
+              
+//               </div>
+//              </div>
+//             `;
+//           }else{
+//             return `
+//             <div class="d-flex justify-content-between">
+//             <div class="bg-primary rounded-2 my-3">${el[1].todo}</div>
+    
+//               <div class="d-flex justify-content-between g-2">
+    
+//                 <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
+    
+//                 <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
+              
+//               </div>
+//              </div>
+//             `;
+//           }
+          
+//           })
+//           .join("");
+
+ 
+    
+//           result.innerHTML = arrMap;
+
+
+//           let updateClass = document.querySelector(".updateClass");
+//           let inpClass = document.querySelector(".inpClass");
+//             updateClass.addEventListener("click", ()=>{
+//               updateTodo(updateClass.dataset.id, inpClass.value)//update function called
+//             })
+//     })
+    
+  
+
+//     function updateTodo(id, value) {
+//       console.log("update function");
+//       const reference = ref(db, 'todos/' + id);//update function
+
+//         set(reference, {
+//           todo: value,
+//         })
+
+//         renderTodos();
+      
+// }}
+
+//     }
+    
+
+
+
+// -----------------------------------------------------
+
 
 
 
