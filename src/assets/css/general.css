@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.login {
+  color: #fff;
+  font-family: PT Sans;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  text-align: center;
+}
+
+.login-enter {
+  color: #fff;
+  font-family: PT Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  margin-bottom: 30px;
+}
+
+.login-name[type='text'] {
+    width: 352px;
+    height: 45px;
+    flex-shrink: 0;
+  
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(255, 255, 255, 0);
+  
+    margin-bottom: 22px;
+    /* background-image: url('../images/user.svg'); */
+    background-repeat: no-repeat;
+    background-position: 10px;
+  }
+
+  .login-name-bg:focus {
+    background-image: none;
+  }
+  
+  .login-name-bg-img{
+      background-image: url('../images/user.svg');
+  }
+
+
+.login-email[type='email'] {
+  width: 352px;
+  height: 45px;
+  flex-shrink: 0;
+
+  border-radius: 15px;
+  border: 1px solid #fff;
+  background-color: rgba(255, 255, 255, 0);
+
+  margin-bottom: 22px;
+  /* background-image: url('../images/user.svg'); */
+  background-repeat: no-repeat;
+  background-position: 10px;
+}
+
+.login-email-bg:focus {
+  background-image: none;
+}
+
+.login-email-bg-img{
+    background-image: url('../images/user.svg');
+}
+
+.login-password[type='password'] {
+  width: 352px;
+  height: 45px;
+  flex-shrink: 0;
+
+  border-radius: 15px;
+  border: 1px solid #fff;
+  background-color: rgba(255, 255, 255, 0);
+
+  margin-bottom: 40px;
+  /* background-image: url('../images/lock.svg'); */
+  background-repeat: no-repeat;
+  background-position: 10px;
+}
+
+.login-password-bg:focus {
+  background-image: none;
+}
+
+.login-password-bg-img{
+    background-image: url('../images/lock.svg');
+}
+
+.login-email[type='email']::placeholder,
+.login-password[type='password']::placeholder,
+.login-name[type='text']::placeholder {
+  padding-left: 58px;
+}
+
+.login-password-forgot {
+  color: #fff;
+  font-family: PT Sans;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.login-button {
+  width: 352px;
+  height: 45px;
+  flex-shrink: 0;
+
+  border-radius: 15px;
+  border: 2px solid #36981d;
+  background: rgba(255, 255, 255, 0);
+
+  margin-bottom: 12px;
+  color: #36981d;
+}
+
+.login-button:hover{
+    color: #18a6c6 ;
+    background-color: #36981d;
+}
+
+.login-register {
+  color: #fff;
+  font-family: PT Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  text-align: center;
+}
+
+.login-register a {
+  color: #18a6c6;
+  font-family: PT Sans;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: normal;
+
+  text-decoration: none;
+}

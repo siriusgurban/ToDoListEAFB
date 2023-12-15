@@ -48,3 +48,14 @@ let SignInUser = (e) => {
 mainForm.addEventListener("submit", SignInUser);
 
 console.log("Hello Register");
+
+
+
+emailInp.addEventListener("input", ()=>{
+    !emailInp.value == "" ? emailInp.classList.remove("login-email-bg-img") : emailInp.classList.add("login-email-bg-img");  
+})
+
+passInp.addEventListener("input", ()=>{
+    !passInp.value == "" ? passInp.classList.remove("login-password-bg-img") : passInp.classList.add("login-password-bg-img");  
+})
+

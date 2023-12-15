@@ -6,35 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/general.css">
 
     <title>ToDoList Login</title>
 </head>
 
-<body class="">
+<body style="background-color: #1F41A9;">
 
-    <section>
-        <div class="container mt-4 d-flex justify-content-center ">
+
+
+    <section class="position-relative" style="height: 100vh;">
+
+        <img class="position-absolute" style="left: 0; top: 0; z-index: -1;" src="assets/images/Ellipse.svg" alt=""
+            srcset="">
+        <img class="position-absolute" style="left: 0; bottom: 0; z-index: -1;" src="assets/images/Ellipse (1).svg"
+            alt="" srcset="">
+        <img class="position-absolute" style="right: 0; bottom: 0; z-index: -1;" src="assets/images/Vector 1.svg" alt=""
+            srcset="">
+
+
+
+        <div class="container d-flex justify-content-center ">
 
             <form id="mainForm">
 
-                <div class="mb-3">
-                    <label for="emailInp" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="emailInp" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <h1 class="login">Login</h1>
+                <p class="login-enter">Please enter your Login and your Password</p>
+
+                <div>
+                    <label for="emailInp" class="form-label"></label>
+                    <input class="login-email login-email-bg login-email-bg-img" type="email" class="" id="emailInp"
+                        aria-describedby="emailHelp" placeholder="Username or Email
+                    ">
                 </div>
 
-                <div class="mb-3">
-                    <label for="passwordInp" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="passwordInp">
+                <div>
+                    <label for="passwordInp" class="form-label"></label>
+                    <input class="login-password login-password-bg login-password-bg-img" type="password" class=""
+                        id="passwordInp" placeholder="Password">
+                    <!-- <p class="login-password-forgot">Forgot password?</p> -->
                 </div>
 
-                <a href="./login.html"><button type="submit" class="btn btn-primary">Login</button></a>
-                <a href="./register.html"><button type="button" class="btn btn-secondary">Register New User</button></a>
+                <a href="./login.html"><button type="submit" class="login-button">Login</button></a>
+                <div class="login-register">Not a member yet? <a href="./register.html">Register!</a></div>
 
             </form>
 
         </div>
+
     </section>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

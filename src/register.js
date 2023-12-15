@@ -44,3 +44,19 @@ let RegisterUser = (e) => {
 mainForm.addEventListener("submit", RegisterUser);
 
 console.log("Hello Register");
+
+fnameInp.addEventListener("input", ()=>{
+    !fnameInp.value == "" ? fnameInp.classList.remove("login-name-bg-img") : fnameInp.classList.add("login-name-bg-img");  
+})
+
+lnameInp.addEventListener("input", ()=>{
+    !lnameInp.value == "" ? lnameInp.classList.remove("login-name-bg-img") : lnameInp.classList.add("login-name-bg-img");  
+})
+
+emailInp.addEventListener("input", ()=>{
+    !emailInp.value == "" ? emailInp.classList.remove("login-email-bg-img") : emailInp.classList.add("login-email-bg-img");  
+})
+
+passInp.addEventListener("input", ()=>{
+    !passInp.value == "" ? passInp.classList.remove("login-password-bg-img") : passInp.classList.add("login-password-bg-img");  
+})
