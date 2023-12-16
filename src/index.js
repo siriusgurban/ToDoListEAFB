@@ -81,14 +81,14 @@ function renderTodos() {
     let arrMap = arr.map((el, index) => {
         return `
         <div class="d-flex justify-content-between">
-        <div class="bg-primary rounded-2 my-3">${el[1].todo}</div>
+        <div class=" my-3">${el[1].todo}</div>
         <input class="rounded-2 d-none inpClass" type="text" value="">
 
           <div class="d-flex justify-content-between g-2">
 
-            <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
+            <button class="index-delete del" data-id='${el[0]}'>Delete</button>
 
-            <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
+            <button class="index-edit editClass" data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
           
           </div>
          </div>
@@ -136,14 +136,14 @@ function renderTodos() {
           if(id == el[0]){
             return `
             <div class="d-flex justify-content-between">
-            <div class="bg-primary rounded-2 my-3">${el[1].todo}</div>
-            <input class="rounded-2 inpClass" type="text" value="${el[1].todo}" >
+            <div class=" my-3">${el[1].todo}</div>
+            <input class=" inpClass" type="text" value="${el[1].todo}" >
     
               <div class="d-flex justify-content-between g-2">
     
-                <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
+                <button class="index-delete del" data-id='${el[0]}'>Delete</button>
     
-                <button class="bg-warning rounded-2 cursor-pointer updateClass"  data-id="${el[0]}" data-value="${el[1].todo}">Update</button>
+                <button class="index-update updateClass"  data-id="${el[0]}" data-value="${el[1].todo}">Update</button>
               
               </div>
              </div>
@@ -151,13 +151,13 @@ function renderTodos() {
           }else{
             return `
             <div class="d-flex justify-content-between">
-            <div class="bg-primary rounded-2 my-3">${el[1].todo}</div>
+            <div class=" my-3">${el[1].todo}</div>
     
               <div class="d-flex justify-content-between g-2">
     
-                <button class="bg-danger rounded-2 cursor-pointer del" data-id='${el[0]}'>Delete</button>
+                <button class="index-delete del" data-id='${el[0]}'>Delete</button>
     
-                <button class="bg-warning rounded-2 cursor-pointer editClass"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
+                <button class="index-edit editClass"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
               
               </div>
              </div>
