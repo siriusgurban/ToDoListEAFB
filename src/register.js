@@ -21,6 +21,7 @@ let passInp = document.querySelector("#passwordInp");
 let fnameInp = document.querySelector("#fnameInp");
 let lnameInp = document.querySelector("#lnameInp");
 let mainForm = document.querySelector("#mainForm");
+let loginButton = document.querySelector(".login-button");
 
 let RegisterUser = (e) => {
     e.preventDefault();
@@ -32,7 +33,28 @@ let RegisterUser = (e) => {
                 lasttname: lnameInp.value,
             });
 
-            // window.location.href = './login.html';
+            alert("You registered! Please, Login")
+           
+        })
+        .catch((error) => {
+            alert(error.message);
+            console.log(error.code);
+            console.log(error.message);
+        })
+        // window.location.href = './login.html';
+}
+
+let RegisterUserEnter = (e) => {
+    e.preventDefault();
+    if (e.key === "Enter") {
+    createUserWithEmailAndPassword(auth, emailInp.value, passInp.value)
+        .then((credentials) => {
+            set(ref(db, 'UsersAuthList/' + credentials.user.uid),{
+                firstname: fnameInp.value,
+                lasttname: lnameInp.value,
+            });
+
+            alert("You registered! Please, Login")
         })
         .catch((error) => {
             alert(error.message);
@@ -40,8 +62,11 @@ let RegisterUser = (e) => {
             console.log(error.message);
         })
 }
+// window.location.href = './login.html';
+}
 
 mainForm.addEventListener("submit", RegisterUser);
+loginButton.addEventListener("keypress", RegisterUserEnter);
 
 console.log("Hello Register");
 

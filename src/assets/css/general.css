@@ -146,6 +146,8 @@
   text-decoration: none;
 }
 
+/* ---------------Login-------------------- */
+
 .index-input {
   width: 436px;
   height: 32px;
@@ -165,21 +167,7 @@
 }
 
 .index-add {
-  width: 234px;
-  height: 35px;
-  flex-shrink: 0;
-
-  color: #fff;
-  font-family: Inter;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: 0.72px;
-
-  border-radius: 20px;
   background: rgba(0, 104, 74, 0.78);
-
   background-color: #18a6c6;
   margin-bottom: 88px;
 }
@@ -206,60 +194,49 @@
 }
 
 .index-delete {
-  width: 234px;
-  height: 35px;
-  flex-shrink: 0;
-
-  color: #fff;
-  font-family: Inter;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: 0.72px;
-
-  border-radius: 20px;
   background: rgba(101, 0, 0, 0.78);
-
-  background-color: #18a6c6;
+  background-color: rgba(101, 0, 0, 0.78);
 }
 
 .index-edit {
-  width: 234px;
-  height: 35px;
-  flex-shrink: 0;
-
-  color: #fff;
-  font-family: Inter;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: 0.72px;
-
-  border-radius: 20px;
   background: rgba(0, 104, 74, 0.78);
-
   background-color: #ffc107;
 }
 
 .index-update{
-  
-    width: 234px;
-    height: 35px;
-    flex-shrink: 0;
-  
-    color: #fff;
-    font-family: Inter;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 0.72px;
-  
-    border-radius: 20px;
     background: rgba(0, 104, 74, 0.78);
-  
     background-color: #36981d;
-  
+}
+
+.inpClass{
+  width: 436px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 20px;
+
+  color: #fff;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.72px;
+
+  background-color: #18a6c6;
+}
+
+.index-button{
+  width: 234px;
+  height: 35px;
+  flex-shrink: 0;
+
+  color: #fff;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.72px;
+
+  border-radius: 20px;
 }

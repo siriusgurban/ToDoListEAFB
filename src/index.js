@@ -41,7 +41,7 @@ let CheckCred = () => {
     window.location.href = "./login.html";
   }
   else{
-    greetUser.innerHTML = `Welcome ${userInfo.firstname} ${userInfo.lastname}`;
+    greetUser.innerHTML = `Welcome, ${userInfo.firstname}`;
   }
 }
 
@@ -80,15 +80,15 @@ function renderTodos() {
 
     let arrMap = arr.map((el, index) => {
         return `
-        <div class="d-flex justify-content-between">
-        <div class=" my-3">${el[1].todo}</div>
+        <div class="d-flex justify-content-between align-items-center">
+        <div class=" my-3 h4">${el[1].todo}</div>
         <input class="rounded-2 d-none inpClass" type="text" value="">
 
           <div class="d-flex justify-content-between g-2">
 
-            <button class="index-delete del" data-id='${el[0]}'>Delete</button>
+            <button class="index-delete del index-button" data-id='${el[0]}'>Delete</button>
 
-            <button class="index-edit editClass" data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
+            <button class="index-edit editClass index-button" data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
           
           </div>
          </div>
@@ -135,29 +135,29 @@ function renderTodos() {
         let arrMap = arr.map((el, index) => {
           if(id == el[0]){
             return `
-            <div class="d-flex justify-content-between">
-            <div class=" my-3">${el[1].todo}</div>
-            <input class=" inpClass" type="text" value="${el[1].todo}" >
+            <div class="d-flex justify-content-between align-items-center">
+            <div class=" my-3 h4">${el[1].todo}</div>
+            <input class="inpClass" type="text" value="${el[1].todo}" >
     
               <div class="d-flex justify-content-between g-2">
     
-                <button class="index-delete del" data-id='${el[0]}'>Delete</button>
+                <button class="index-delete del index-button" data-id='${el[0]}'>Delete</button>
     
-                <button class="index-update updateClass"  data-id="${el[0]}" data-value="${el[1].todo}">Update</button>
+                <button class="index-update updateClass index-button"  data-id="${el[0]}" data-value="${el[1].todo}">Update</button>
               
               </div>
              </div>
             `;
           }else{
             return `
-            <div class="d-flex justify-content-between">
-            <div class=" my-3">${el[1].todo}</div>
+            <div class="d-flex justify-content-between align-items-center">
+            <div class=" my-3 h4">${el[1].todo}</div>
     
               <div class="d-flex justify-content-between g-2">
     
-                <button class="index-delete del" data-id='${el[0]}'>Delete</button>
+                <button class="index-delete del index-button" data-id='${el[0]}'>Delete</button>
     
-                <button class="index-edit editClass"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
+                <button class="index-edit editClass index-button"  data-id="${el[0]}" data-value="${el[1].todo}">Edit</button>
               
               </div>
              </div>

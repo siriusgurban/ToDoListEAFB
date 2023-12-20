@@ -20,14 +20,15 @@ const dbref = ref(db);
 let emailInp = document.querySelector("#emailInp");
 let passInp = document.querySelector("#passwordInp");
 let mainForm = document.querySelector("#mainForm");
+let loginButton = document.querySelector(".login-button");
 
 let SignInUser = (e) => {
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, emailInp.value, passInp.value)
         .then((credentials) => {
-            get(child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot)=>{
-                if(snapshot.exists){
+            get(child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot) => {
+                if (snapshot.exists) {
                     sessionStorage.setItem("user-info", JSON.stringify({
                         firstname: snapshot.val().firstname,
                         lastname: snapshot.val().lastname
@@ -45,17 +46,43 @@ let SignInUser = (e) => {
         })
 }
 
+let SignInUserEnter = (e) => {
+    e.preventDefault();
+    if (e.key === "Enter") {
+        signInWithEmailAndPassword(auth, emailInp.value, passInp.value)
+            .then((credentials) => {
+                get(child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot) => {
+                    if (snapshot.exists) {
+                        sessionStorage.setItem("user-info", JSON.stringify({
+                            firstname: snapshot.val().firstname,
+                            lastname: snapshot.val().lastname
+                        }))
+
+                        sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+                        window.location.href = '../dist/index.html';
+                    }
+                })
+            })
+            .catch((error) => {
+                alert(error.message);
+                console.log(error.code);
+                console.log(error.message);
+            })
+    }
+}
+
 mainForm.addEventListener("submit", SignInUser);
+loginButton.addEventListener("keypress", SignInUserEnter);
 
 console.log("Hello Register");
 
 
 
-emailInp.addEventListener("input", ()=>{
-    !emailInp.value == "" ? emailInp.classList.remove("login-email-bg-img") : emailInp.classList.add("login-email-bg-img");  
+emailInp.addEventListener("input", () => {
+    !emailInp.value == "" ? emailInp.classList.remove("login-email-bg-img") : emailInp.classList.add("login-email-bg-img");
 })
 
-passInp.addEventListener("input", ()=>{
-    !passInp.value == "" ? passInp.classList.remove("login-password-bg-img") : passInp.classList.add("login-password-bg-img");  
+passInp.addEventListener("input", () => {
+    !passInp.value == "" ? passInp.classList.remove("login-password-bg-img") : passInp.classList.add("login-password-bg-img");
 })
 
