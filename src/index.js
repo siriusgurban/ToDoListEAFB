@@ -33,12 +33,12 @@ let inp = document.querySelector("#inp");
 let signOut = () => {
   sessionStorage.removeItem("user-creds");
   sessionStorage.removeItem("user-info");
-  window.location.href = "../src/login.html"
+  window.location.href = "../src/assets/pages/login.html"
 }
 
 let CheckCred = () => {
   if(!sessionStorage.getItem("user-creds")){
-    window.location.href = "./login.html";
+    window.location.href = "../src/assets/pages/login.html";
   }
   else{
     greetUser.innerHTML = `Welcome, ${userInfo.firstname}`;
@@ -63,7 +63,9 @@ function writeUserData(userId, todo) {
 btn.addEventListener("click", function(){//add function called
   writeUserData(Date.now(), inp.value)
   console.log("added");
+  inp.value = "";
   renderTodos()
+  
 })
 
 const result = document.querySelector("#result");

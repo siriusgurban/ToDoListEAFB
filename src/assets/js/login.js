@@ -35,7 +35,8 @@ let SignInUser = (e) => {
                     }))
 
                     sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                    window.location.href = '../dist/index.html';
+                    window.location.href = '../../../dist/index.html';
+                    // console.log(window.location.href);
                 }
             })
         })
@@ -59,7 +60,7 @@ let SignInUserEnter = (e) => {
                         }))
 
                         sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                        window.location.href = '../dist/index.html';
+                        window.location.href = '../../../dist/index.html';
                     }
                 })
             })
