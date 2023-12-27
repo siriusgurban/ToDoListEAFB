@@ -4,12 +4,13 @@ import { getDatabase, ref, set, onValue, remove } from 'https://www.gstatic.com/
 import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAu4xC1TyFSj5Iqpp2aNl2QVPrHBiJWpHo",
-    authDomain: "test2-9a0cc.firebaseapp.com",
-    projectId: "test2-9a0cc",
-    storageBucket: "test2-9a0cc.appspot.com",
-    messagingSenderId: "1061242781557",
-    appId: "1:1061242781557:web:5b9eca21caaf2c930ddd3c"
+    apiKey: "AIzaSyCchalPMe4QFZXzkG8A7L1h1CtRXEZOook",
+    authDomain: "todolisteafb.firebaseapp.com",
+    databaseURL: "https://todolisteafb-default-rtdb.firebaseio.com",
+    projectId: "todolisteafb",
+    storageBucket: "todolisteafb.appspot.com",
+    messagingSenderId: "352113117273",
+    appId: "1:352113117273:web:e438ea9c4d7d93cb678948"
 };
 
 const app = initializeApp(firebaseConfig);
